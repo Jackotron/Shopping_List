@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.util.Log
 import com.example.shopping_list.R
 import com.example.shopping_list.databinding.ActivityMainBinding
+import com.example.shopping_list.fragments.FragmentManager
+import com.example.shopping_list.fragments.NoteFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("MyLog", "Settings")
                 }
                 R.id.notes -> {
-                    Log.d("MyLog", "Notes")
+                    FragmentManager.setFragment(NoteFragment.newInstance(),this)
                 }
                 R.id.shop_list -> {
                     Log.d("MyLog", "Shop_list")

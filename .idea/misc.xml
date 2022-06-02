@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/checkmen_av/AndroidStudioProjects/Shopping_List/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/checkmen_av/AndroidStudioProjects/Shopping_List/app/src/main/res/layout/fragment_note.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/checkmen_av/AndroidStudioProjects/Shopping_List/app/src/main/res/layout/note_list_item.xml" value="0.25" />
         <entry key="..\:/Users/checkmen_av/AndroidStudioProjects/Shopping_List/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
       </map>
     </option>
