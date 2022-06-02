@@ -23,16 +23,18 @@ class MainActivity : AppCompatActivity() {
         binding.bNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    Log.d("MyLog", "Settings")
+                    Log.d("MyLog", "Настройки")
                 }
                 R.id.notes -> {
                     FragmentManager.setFragment(NoteFragment.newInstance(),this)
+                    Log.d("MyLog", "Список")
                 }
                 R.id.shop_list -> {
-                    Log.d("MyLog", "Shop_list")
+                    Log.d("MyLog", "Лист")
                 }
                 R.id.new_item -> {
-                    Log.d("MyLog", "New_item")
+                    FragmentManager.currentFlag?.onClickNew()
+                    Log.d("MyLog", "Создать")
                 }
             }
             true
