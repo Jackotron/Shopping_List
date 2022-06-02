@@ -13,6 +13,7 @@ class NewNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityNewNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        actionBarSettings()
 
     }
 
@@ -28,5 +29,10 @@ class NewNoteActivity : AppCompatActivity() {
             finish()
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun actionBarSettings() {
+        val ad = supportActionBar
+        ad?.setDisplayHomeAsUpEnabled(true)
     }
 }
