@@ -3,14 +3,15 @@ package com.example.shopping_list.entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
 
 @Entity(tableName = "note_list")
 data class NoteItem(
     @PrimaryKey(autoGenerate = true)
     val id: Int?,
 
-    @ColumnInfo(name = "name")
-    val name: String,
+//    @ColumnInfo(name = "name")
+//    val name: String,
 
     @ColumnInfo(name = "title")
     val title: String,
@@ -24,4 +25,4 @@ data class NoteItem(
     @ColumnInfo(name = "category")
     val category: String
 
-)
+): Serializable
