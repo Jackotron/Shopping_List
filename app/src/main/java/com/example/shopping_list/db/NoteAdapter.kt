@@ -10,23 +10,27 @@ import com.example.shopping_list.R
 import com.example.shopping_list.databinding.NoteListItemBinding
 import com.example.shopping_list.entities.NoteItem
 
-class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
+class NoteAdapter(private val listener: Listener) :
+    ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         return ItemHolder.create(parent)
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        holder.setData(getItem(position))
+        holder.setData(getItem(position), listener)
     }
 
     class ItemHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val binding = NoteListItemBinding.bind(view)
 
-        fun setData(note: NoteItem) = with(binding) {
+        fun setData(note: NoteItem, listener: Listener) = with(binding) {
             tvTitle.text = note.title
             tvDiscription.text = note.content
             tvTime.text = note.time
+            imDelete.setOnClickListener {
+                listener.deleteItem(note.id!!)
+            }
         }
 
         //Загружаем и заполняем разметку
@@ -48,5 +52,9 @@ class NoteAdapter : ListAdapter<NoteItem, NoteAdapter.ItemHolder>(ItemComparator
         override fun areItemsTheSame(oldItem: NoteItem, newItem: NoteItem): Boolean {
             return oldItem == newItem
         }
+    }
+
+    interface Listener {
+        fun deleteItem(id: Int)
     }
 }
