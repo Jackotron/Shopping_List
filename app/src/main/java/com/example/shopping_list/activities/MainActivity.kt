@@ -2,7 +2,6 @@ package com.example.shopping_list.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.example.shopping_list.R
 import com.example.shopping_list.databinding.ActivityMainBinding
 import com.example.shopping_list.fragments.FragmentManager
