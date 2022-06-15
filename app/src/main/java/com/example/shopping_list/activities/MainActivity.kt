@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setBottomNavListener()
+        FragmentManager.setFragment(NoteFragment.newInstance(), this)
     }
 
     private fun setBottomNavListener() {
