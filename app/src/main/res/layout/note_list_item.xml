@@ -9,6 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
+        android:backgroundTint="@color/green_main"
         app:cardCornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +29,7 @@
                 android:background="@null"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_delet" />
+                app:srcCompat="@drawable/ic_delete" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -60,8 +61,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
-                    android:background="#F30909"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:background="#274BFF"
+                    android:orientation="horizontal">
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tvTime"

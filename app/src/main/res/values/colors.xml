@@ -8,4 +8,12 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green_main">#62A865</color>
+
+    //Цвета шрифтов
+    <color name="picker_red">#FF1100</color>
+    <color name="picker_green">#00FF0B</color>
+    <color name="picker_blue">#0022FF</color>
+    <color name="picker_black">#000000</color>
+    <color name="picker_yellow">#FFE500</color>
+    <color name="picker_orange">#FF6E00</color>
 </resources>

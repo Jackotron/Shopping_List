@@ -13,11 +13,11 @@ class MainViewModel(database: MainDataBase) : ViewModel() {
     }
 
     fun deleteNote(id: Int) = viewModelScope.launch {
-        dao.deleteNote(id)
+        dao.deleteNote(id)          //Удаление заметки
     }
 
     fun updateNote(note: NoteItem) = viewModelScope.launch {
-        dao.updateNote(note)
+        dao.updateNote(note)        //обновление заметки
     }
 
     class MainViewModelFactory(val database: MainDataBase) : ViewModelProvider.Factory {

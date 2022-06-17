@@ -1,14 +1,18 @@
 package com.example.shopping_list.activities
 
 import android.content.Intent
+import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Spannable
+import android.text.style.StyleSpan
 import android.view.Menu
 import android.view.MenuItem
 import com.example.shopping_list.R
 import com.example.shopping_list.databinding.ActivityNewNoteBinding
 import com.example.shopping_list.entities.NoteItem
 import com.example.shopping_list.fragments.NoteFragment
+import com.example.shopping_list.utils.HtmlManager
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -35,9 +39,9 @@ class NewNoteActivity : AppCompatActivity() {
     }
 
     private fun fillNote() = with(binding) {
-            edTitle.setText(note?.title)
-            edDescription.setText(note?.content)
-        }
+        edTitle.setText(note?.title)
+        edDescription.setText(HtmlManager.getFromHtml(note?.content!!).trim())
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -50,8 +54,32 @@ class NewNoteActivity : AppCompatActivity() {
             setMainResult()
         } else if (item.itemId == android.R.id.home) {
             finish()
+        } else if (item.itemId == R.id.id_bold) {
+            setBoldForSelectedText()
         }
+
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun setBoldForSelectedText() = with(binding) {
+        val startPos = edDescription.selectionStart     // начало позиции
+        val endPos = edDescription.selectionEnd     // конец позиции
+
+        val styles = edDescription.text.getSpans(
+            startPos,
+            endPos,
+            StyleSpan::class.java
+        ) //указываем начало и конец выделения
+        var boldStyle: StyleSpan? = null
+        if (styles.isNotEmpty()) {          // проверяем на пустоту
+            edDescription.text.removeSpan(styles[0])
+        } else {
+            boldStyle = StyleSpan(Typeface.BOLD)
+        }
+
+        edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()       // удаление пробелов
+        edDescription.setSelection(startPos)        //курсор в начале выбранного слова
     }
 
     private fun setMainResult() {
@@ -73,7 +101,7 @@ class NewNoteActivity : AppCompatActivity() {
     private fun updateNote(): NoteItem? = with(binding) {
         return note?.copy(
             title = edTitle.text.toString(),
-            content = edDescription.text.toString().trim()
+            content = HtmlManager.toHtml(edDescription.text).trim()
         )
     }
 
@@ -81,7 +109,7 @@ class NewNoteActivity : AppCompatActivity() {
         return NoteItem(
             null,
             binding.edTitle.text.toString(),
-            binding.edDescription.text.toString().trim(),
+            HtmlManager.toHtml(binding.edDescription.text).trim(),
             getCurrentTime(),
             ""
         )

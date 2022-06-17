@@ -8,4 +8,6 @@
     <string name="description_hint">Описание</string>
     <string name="save">Сохранить</string>
     <string name="hello_blank_fragment">Фрагмент</string>
+    <string name="bold">Шрифт</string>
+    <string name="Color">Цвет</string>
 </resources>
