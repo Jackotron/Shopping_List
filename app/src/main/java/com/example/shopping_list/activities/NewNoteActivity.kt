@@ -1,18 +1,28 @@
 package com.example.shopping_list.activities
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
+import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.view.ActionMode
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils.loadAnimation
+import androidx.core.content.ContextCompat
 import com.example.shopping_list.R
 import com.example.shopping_list.databinding.ActivityNewNoteBinding
 import com.example.shopping_list.entities.NoteItem
 import com.example.shopping_list.fragments.NoteFragment
 import com.example.shopping_list.utils.HtmlManager
+import com.example.shopping_list.utils.MyTouchListener
+import com.google.android.material.animation.AnimationUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,7 +36,36 @@ class NewNoteActivity : AppCompatActivity() {
         setContentView(binding.root)
         actionBarSettings()
         getNote()
+        init()
+        onClickColorPiker()
+//        actionMenuCallback()
 
+    }
+
+    private fun onClickColorPiker() = with(binding) {
+        imRed.setOnClickListener {
+            setColorForSelectedText(R.color.picker_red)
+        }
+        imBlack.setOnClickListener {
+            setColorForSelectedText(R.color.picker_black)
+        }
+        imBlue.setOnClickListener {
+            setColorForSelectedText(R.color.picker_blue)
+        }
+        imGreen.setOnClickListener {
+            setColorForSelectedText(R.color.picker_green)
+        }
+        imOrange.setOnClickListener {
+            setColorForSelectedText(R.color.picker_orange)
+        }
+        imYellow.setOnClickListener {
+            setColorForSelectedText(R.color.picker_yellow)
+        }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun init() {
+        binding.colorPicker.setOnTouchListener(MyTouchListener())
     }
 
     private fun getNote() {
@@ -56,6 +95,13 @@ class NewNoteActivity : AppCompatActivity() {
             finish()
         } else if (item.itemId == R.id.id_bold) {
             setBoldForSelectedText()
+        } else if (item.itemId == R.id.id_color) {
+            if (binding.colorPicker.isShown) {
+                closeColorPicker()
+            } else {
+                openColorPicker()
+            }
+
         }
 
         return super.onOptionsItemSelected(item)
@@ -78,6 +124,29 @@ class NewNoteActivity : AppCompatActivity() {
         }
 
         edDescription.text.setSpan(boldStyle, startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+        edDescription.text.trim()       // удаление пробелов
+        edDescription.setSelection(startPos)        //курсор в начале выбранного слова
+    }
+
+    private fun setColorForSelectedText(colorId: Int) = with(binding) {
+        val startPos = edDescription.selectionStart     // начало позиции
+        val endPos = edDescription.selectionEnd     // конец позиции
+
+        val styles = edDescription.text.getSpans(
+            startPos,
+            endPos,
+            ForegroundColorSpan::class.java //проверяем становлены ли какие изменения
+        )
+        if (styles.isNotEmpty()) {
+            edDescription.text.removeSpan(styles[0])
+
+        }
+
+        edDescription.text.setSpan(
+            ForegroundColorSpan(
+                ContextCompat.getColor(this@NewNoteActivity, colorId)
+            ), startPos, endPos, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         edDescription.text.trim()       // удаление пробелов
         edDescription.setSelection(startPos)        //курсор в начале выбранного слова
     }
@@ -127,4 +196,54 @@ class NewNoteActivity : AppCompatActivity() {
         val ad = supportActionBar
         ad?.setDisplayHomeAsUpEnabled(true)
     }
+
+    private fun openColorPicker() {
+        binding.colorPicker.visibility = View.VISIBLE
+        val openAnim = loadAnimation(this, R.anim.open_color_picker)
+        binding.colorPicker.startAnimation(openAnim)
+    }
+
+    private fun closeColorPicker() {
+        val openAnim = loadAnimation(this, R.anim.close_color_picker)
+        openAnim.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation?) {
+
+            }
+
+            override fun onAnimationEnd(animation: Animation?) {
+                binding.colorPicker.visibility = View.GONE
+            }
+
+            override fun onAnimationRepeat(animation: Animation?) {
+
+            }
+
+        })
+        binding.colorPicker.startAnimation(openAnim)
+    }
+//    убираем редактор над словами
+//    private fun actionMenuCallback() {
+//        val actionCallback = object : ActionMode.Callback {
+//            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+//                menu?.clear()
+//                return true
+//            }
+//
+//            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+//                menu?.clear()
+//                return true
+//            }
+//
+//            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+//                return true
+//            }
+//
+//            override fun onDestroyActionMode(mode: ActionMode?) {
+//
+//            }
+//
+//        }
+//
+//        binding.edDescription.customSelectionActionModeCallback = actionCallback
+//    }
 }

@@ -17,7 +17,7 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="Color"
+        android:id="@+id/id_color"
         android:icon="@drawable/ic_color"
         android:orderInCategory="1"
         android:title="@string/Color"
