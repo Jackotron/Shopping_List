@@ -190,9 +190,8 @@ class NewNoteActivity : AppCompatActivity() {
         return formatter.format(Calendar.getInstance().time)
     }
 
-    private
 
-    fun actionBarSettings() {
+    private fun actionBarSettings() {
         val ad = supportActionBar
         ad?.setDisplayHomeAsUpEnabled(true)
     }

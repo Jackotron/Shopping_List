@@ -9,7 +9,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="6dp"
-        android:backgroundTint="@color/green_main"
+        android:backgroundTint="#FFFFFF"
         app:cardCornerRadius="3dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,7 +61,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="3dp"
-                    android:background="#274BFF"
+                    android:background="#00A287"
                     android:orientation="horizontal">
 
                 </LinearLayout>
